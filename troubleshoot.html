@@ -1,0 +1,219 @@
+<html>
+	<head>
+	   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700;1,800&amp;display=swap" rel="stylesheet">
+	   <script type='text/javascript'>
+		  function openWIFISettings(key) {
+			   Android.openWIFISettings(key);
+		   }
+		  
+		  function openSettings() {
+			   Android.openSettings();
+		   }
+		  
+		  function loadHomePage() {
+			   Android.loadHomePage();
+		   }
+		  
+		  var img1 = new Image();
+		  var img2 = new Image();
+		  
+		  function Diagonostics()
+		  {
+		  IsWifiOn();
+		  IsGoogleReachable();
+		  IsUzeliReachable();
+		  
+		  var deadline = new Date(Date.parse(new Date()) + 10 * 60 * 1000);
+		  initializeClock('clockdiv', deadline);
+		  
+		  setTimeout(function(){ loadHomePage() }, 60000);
+		  
+		  
+		  }
+		  
+		  function IsWifiOn() {
+		  if(navigator.onLine){
+		   document.getElementById("wifi").innerHTML = "<span style='background: #51CF66;font-weight: 500;font-size: 16px;padding: 8px 30px;border-radius: 25px;color: #fff;margin-left: 15px;'>SUCCESS</span>"; 
+		  } else {
+		   document.getElementById("wifi").innerHTML = "<span style='background: #F63F3C;font-weight: 500;font-size: 16px;padding: 8px 30px;border-radius: 25px;color: #fff;margin-left: 15px;'>FAILED<span>";
+		  }
+		  }
+		  
+		  function IsGoogleReachable() {
+		   
+		   var timerG = setTimeout(function(){ img1.src = ""; document.getElementById("google").innerHTML = "<span style='color:#992200;'><strong>TIMEOUT</strong><span>" }, 6000);
+		  
+		   img1.onerror = function() {clearTimeout(timerG);document.getElementById("google").innerHTML = "<span style='color:#992200;'><strong>FAILED</strong><span>"};
+		   img1.onabort = function() {clearTimeout(timerG); document.getElementById("google").innerHTML = "<span style='color:#992200;'><strong>ABORTED</strong><span>"};
+		   img1.onload = function() { clearTimeout(timerG); document.getElementById("google").innerHTML = "<span style='background: #51CF66; font-weight: 500;font-size: 16px;padding: 8px 30px;border-radius: 25px;color: #fff;margin-left: 15px;'>SUCCESS</span>"};
+		   img1.src = "https://www.google.com/favicon.ico?_="+(new Date().getTime());
+		  }
+		  
+		  function IsUzeliReachable() {
+		  
+		  var timerGZ = setTimeout(function(){ img2.src = ""; document.getElementById("uzeli").innerHTML = "<span style='color:#992200;'><strong>TIMEOUT</strong><span>" }, 8000);
+		  
+		  
+		   img2.onerror = function() {clearTimeout(timerGZ);document.getElementById("uzeli").innerHTML = "<span style='color:#992200;'><strong>FAILED</strong><span>"};
+		   img2.onabort = function() {clearTimeout(timerGZ);document.getElementById("uzeli").innerHTML = "<span style='color:#992200;'><strong>ABORTED</strong><span>"};
+		   img2.onload = function() {clearTimeout(timerGZ); document.getElementById("uzeli").innerHTML = "<span style='background: #51CF66; font-weight: 500;font-size: 16px;padding: 8px 30px;border-radius: 25px;color: #fff;margin-left: 15px;'>SUCCESS</span>"};
+		  
+		   img2.src = "http://client.growthzilla.com/favicon.ico?_="+(new Date().getTime());
+		  }
+		  
+		  
+		  // Clock code
+		  
+		  function getTimeRemaining(endtime) {
+		   var t = Date.parse(endtime) - Date.parse(new Date());
+		   var seconds = Math.floor((t / 1000) % 60);
+		   return {
+		  'total': t,
+		  'seconds': seconds
+		   };
+		  }
+		  
+		  function initializeClock(id, endtime) {
+		   var clock = document.getElementById(id);
+		   var secondsSpan = clock.querySelector('.seconds');
+		  
+		   function updateClock() {
+		  var t = getTimeRemaining(endtime);
+		  
+		  secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+		  
+		  if (t.total <= 0) {
+			clearInterval(timeinterval);
+		  }
+		   }
+		  
+		   updateClock();
+		   var timeinterval = setInterval(updateClock, 1000);
+		  }
+	   </script>
+	   <style>
+		  #clockdiv{
+		  font-family: sans-serif;
+		  color: #fff;
+		  display: inline-block;
+		  font-weight: 100;
+		  text-align: center;
+		  font-size: 30px;
+		  }
+		  #clockdiv > div{
+		  padding: 4px;
+		  border-radius: 3px;
+		  display: inline-block;
+		  }
+		  #clockdiv div > span{
+		  padding: 4px;
+		  border-radius: 3px;
+		  display: inline-block;
+		  }
+	   </style>
+	</head>
+	<body style="padding:0px; margin:0px; font-family: Jost, 'sans-serif'; color: #212529" onload="Diagonostics()">
+	   <div style="width:100%;height:90px;background: #371650; display: flex; align-items: center; justify-content: center; font-family: Lato; text-align: center; padding: 0px;">
+		  <img src="img/logo.png" style="width: 250px;" alt="growthzilla logo">
+	   </div>
+	   <div style="margin: 30px 0;display: flex;justify-content: center;">
+		  <div style="background: #FFF5F5;padding: 15px 40px;border-radius: 8px; text-align: center;">
+			 <svg width="30" height="22" viewBox="0 0 34 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M15.9542 0.975342H18.0944L34 25.0839L32.9299 26.5391H1.0701L0 25.0839L15.9542 0.975342ZM17.0243 3.49239L3.11302 24.5726H30.887L17.0243 3.49239ZM18.5444 22.6062V20.6398H15.5043V22.6062H18.5444ZM15.5043 18.6733V10.8076H18.5444V18.6733H15.5043Z" fill="#F63F3C"/>
+			 </svg>
+			 <h1 style="margin: 0; text-align: center; padding-left: 10px; font-size: 24px; display: inline-block; font-weight: 400; color: #F63F3C; text-transform: capitalize;">
+				Problem Connecting to the Internet
+			 </h1>
+		  </div>
+	   </div>
+	   <div style="background: #F6EFFB; text-align: center; height: 60px; display: flex;align-items: center; justify-content: center;">
+		  <h2 style="font-size: 28px; color: #212529; font-weight: 400;flex: 1;">Diagnostic Test Results</h2>
+	   </div>
+	   <div style="margin: 15px 0">
+		  <div>
+			 <div style="display: flex; align-items: center; width: 100%;">
+				<h3 style="flex:1;font-weight: 400; font-size: 24px; display: inline-block;  text-align: right;">WiFi Connection Test</h3>
+				<span id="wifi" style="margin-left: 15px; font-size: 24px;flex: 1; "> <span style="margin-left:50px;">Testing...</span></span>
+			 </div>
+		  </div>
+		  <div>
+			 <div style="display: flex; align-items: center; width: 100%;">
+				<h3 style="flex: 1; font-weight: 400; font-size: 24px; display: inline-block;  text-align: right;">Google Connection Test</h3>
+				<span id="google" style="margin-left: 15px; font-size: 24px;flex: 1; "><span style="margin-left:50px;">Testing...</span></span>
+			 </div>
+		  </div>
+		  <div>
+			 <div style="display: flex; align-items: center;width: 100%;">
+				<h3 style="flex: 1; font-weight: 400; font-size: 24px; display: inline-block;  text-align: right;">Growthzilla Connection Test</h3>
+				<span id="uzeli" style="flex: 1; margin-left: 15px; font-size: 24px;"><span style="margin-left:50px;">Testing...</span></span>
+			 </div>
+		  </div>
+		  <div>
+			 <div style="display: flex; align-items: center;width: 100%;">
+				<h3 style="flex: 1; font-weight: 400; font-size: 24px; display: inline-block; width: 350px; text-align: right;">Test Will Be Repeated In</h3>
+				<div id="clockdiv" style="margin-left: 15px; font-size: 20px;flex: 1; text-align: left; width: 185px;">
+				   <div style="color: #AA6FD8; margin-left: 15px;">
+					  <span class="seconds" ></span> Seconds
+				   </div>
+				</div>
+			 </div>
+		  </div>
+	   </div>
+	   <div style="background: #F6EFFB; text-align: center; height: 60px; display: flex;
+		  align-items: center; justify-content: center;">
+		  <h2 style="font-size: 28px; color: #212529; font-weight: 400; ">Resolution Shortcuts</h2>
+	   </div>
+	   <div style="display: flex;justify-content: center;padding: 25px 0;">
+		  <div style="margin: 0 15px;">
+			 <button style="width: 200px;display: flex;flex-direction: column;align-items: center;height: 145px;justify-content: center;font-family: Jost, 'sans-serif';border:0;box-shadow: 0 2px 10px rgba(0,0,0,0.05);border-radius: 8px;font-size: 20px;background: #fff;font-weight: 400;text-transform: uppercase;" onclick="openWIFISettings(true);">
+				<svg style="margin-bottom:20px;" width="36" height="26" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+				   <path d="M2 9.8574C11.4284 -0.619133 23.9996 -0.619133 33.428 9.8574" stroke="#AA6FD8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+				   <path d="M8.2856 16.143C13.9426 9.8574 21.4854 9.8574 27.1424 16.143" stroke="#AA6FD8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+				   <path d="M17.714 24C18.5819 24 19.2854 23.2965 19.2854 22.4286C19.2854 21.5607 18.5819 20.8572 17.714 20.8572C16.8461 20.8572 16.1426 21.5607 16.1426 22.4286C16.1426 23.2965 16.8461 24 17.714 24Z" stroke="#AA6FD8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				WiFi Settings
+			 </button>
+		  </div>
+		  <div style="margin: 0 15px;">
+			 <button style="width: 200px;display: flex;flex-direction: column;align-items: center;height: 145px;justify-content: center;font-family: Jost, 'sans-serif';border:0;box-shadow: 0 2px 10px rgba(0,0,0,0.05);border-radius: 8px;font-size: 20px;background: #fff;font-weight: 400;text-transform: uppercase;" onclick="openSettings();">
+				<svg style="margin-bottom:20px;" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+				   <path d="M32.5919 13.9921L28.9032 12.8921C28.6482 12.0026 28.2975 11.1432 27.8572 10.3291L29.663 6.95213C29.7157 6.82466 29.7556 6.67877 29.7337 6.53609C29.7119 6.39342 29.6446 6.26158 29.5419 6.16014L26.9103 3.52015C26.8088 3.41749 26.6768 3.35027 26.534 3.32847C26.3912 3.30667 26.2451 3.33146 26.1175 3.39915L22.7592 5.19214C21.9363 4.73087 21.0648 4.36196 20.1607 4.09215L19.0596 0.451166C19.0131 0.316985 18.9251 0.201026 18.8083 0.119982C18.6916 0.0389374 18.5521 -0.00301315 18.41 0.000168485H14.6884C14.5454 0.000833512 14.4063 0.0470662 14.2915 0.132138C14.1766 0.21721 14.0919 0.336682 14.0497 0.473166L12.9487 4.10315C12.037 4.37152 11.158 4.74046 10.3281 5.20314L7.02487 3.42115C6.89727 3.35346 6.75123 3.32867 6.60842 3.35047C6.4656 3.37227 6.33363 3.43949 6.23209 3.54215L3.55648 6.14914C3.45371 6.25058 3.38643 6.38242 3.36461 6.52509C3.34279 6.66777 3.3676 6.81366 3.43536 6.94113L5.2191 10.2411C4.75671 11.0668 4.38743 11.9411 4.11802 12.8481L0.473463 13.9481C0.336845 13.9902 0.217255 14.0749 0.1321 14.1896C0.0469439 14.3043 0.000665682 14.4433 0 14.5861V18.3041C0.000665682 18.4469 0.0469439 18.5858 0.1321 18.7006C0.217255 18.8153 0.336845 18.8999 0.473463 18.9421L4.14005 20.0421C4.41239 20.934 4.78162 21.7934 5.24112 22.6051L3.43536 26.059C3.3676 26.1865 3.34279 26.3324 3.36461 26.4751C3.38643 26.6177 3.45371 26.7496 3.55648 26.851L6.18805 29.48C6.28959 29.5827 6.42156 29.6499 6.56437 29.6717C6.70719 29.6935 6.85323 29.6687 6.98082 29.601L10.3831 27.786C11.188 28.2199 12.037 28.5665 12.9156 28.82L14.0167 32.527C14.0589 32.6635 14.1436 32.783 14.2584 32.868C14.3733 32.9531 14.5123 32.9993 14.6553 33H18.377C18.5199 32.9993 18.659 32.9531 18.7738 32.868C18.8887 32.783 18.9734 32.6635 19.0156 32.527L20.1167 28.809C20.9878 28.5542 21.8293 28.2076 22.6271 27.775L26.0515 29.601C26.1791 29.6687 26.3251 29.6935 26.4679 29.6717C26.6107 29.6499 26.7427 29.5827 26.8442 29.48L29.4758 26.851C29.5786 26.7496 29.6459 26.6177 29.6677 26.4751C29.6895 26.3324 29.6647 26.1865 29.5969 26.059L27.7691 22.6491C28.2067 21.849 28.5573 21.0046 28.8152 20.1301L32.5258 19.0301C32.6624 18.9879 32.782 18.9033 32.8671 18.7886C32.9523 18.6738 32.9986 18.5349 32.9992 18.3921V14.6411C33.0057 14.5043 32.9702 14.3688 32.8974 14.2528C32.8245 14.1368 32.7179 14.0458 32.5919 13.9921ZM16.5492 22.5501C15.3514 22.5501 14.1806 22.1952 13.1847 21.5304C12.1888 20.8657 11.4126 19.9208 10.9542 18.8153C10.4959 17.7098 10.3759 16.4934 10.6096 15.3198C10.8433 14.1462 11.4201 13.0682 12.267 12.2221C13.1139 11.376 14.193 10.7998 15.3677 10.5664C16.5425 10.3329 17.7601 10.4527 18.8667 10.9106C19.9732 11.3686 20.9191 12.144 21.5845 13.1389C22.2499 14.1338 22.6051 15.3035 22.6051 16.5001C22.6051 18.1046 21.9671 19.6435 20.8314 20.7781C19.6957 21.9126 18.1553 22.5501 16.5492 22.5501Z" fill="#AA6FD8"/>
+				</svg>
+				App Settings
+			 </button>
+		  </div>
+		  <div style="margin: 0 15px;">
+			 <button style="width: 200px;display: flex;flex-direction: column;align-items: center;height: 145px;justify-content: center;font-family: Jost, 'sans-serif';border:0;box-shadow: 0 2px 10px rgba(0,0,0,0.05);border-radius: 8px;font-size: 20px;background: #fff;font-weight: 400;text-transform: uppercase;" onclick="loadHomePage();">
+				<svg style="margin-bottom:20px;" width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+				   <path d="M2.44972 16.9504H3.89975V27.1006C3.89975 28.7 5.20043 30.0007 6.79981 30.0007H24.2002C25.7996 30.0007 27.1002 28.7 27.1002 27.1006V16.9504H28.5503C28.837 16.9503 29.1173 16.8653 29.3557 16.7059C29.5941 16.5466 29.7799 16.3201 29.8896 16.0552C29.9994 15.7903 30.0281 15.4988 29.9722 15.2176C29.9162 14.9363 29.7782 14.678 29.5755 14.4752L16.5252 1.42491C16.3906 1.29013 16.2308 1.18321 16.0549 1.11026C15.879 1.03731 15.6904 0.999756 15.5 0.999756C15.3096 0.999756 15.121 1.03731 14.9451 1.11026C14.7692 1.18321 14.6094 1.29013 14.4748 1.42491L1.42455 14.4752C1.22182 14.678 1.08377 14.9363 1.02785 15.2176C0.971921 15.4988 1.00064 15.7903 1.11036 16.0552C1.22008 16.3201 1.40589 16.5466 1.64429 16.7059C1.88269 16.8653 2.16298 16.9503 2.44972 16.9504ZM15.5 4.50042L24.2002 13.2006V19.8505L24.2016 27.1006H6.79981V13.2006L15.5 4.50042Z" fill="#AA6FD8" stroke="#AA6FD8"/>
+				   <path d="M15.4999 24.2005C20.8694 24.2005 22.6065 19.0689 22.6776 18.8514L19.9225 17.9509C19.9109 17.9842 18.7901 21.3005 15.4999 21.3005C12.2548 21.3005 11.1208 18.08 11.0759 17.9422L8.32228 18.8514C8.39333 19.0689 10.1305 24.2005 15.4999 24.2005Z" fill="#AA6FD8" stroke="#AA6FD8"/>
+				</svg>
+				Load Homepage
+			 </button>
+		  </div>
+	   </div>
+	   <div style="background: #F6EFFB; text-align: center; height: 60px; display: flex;
+		  align-items: center; justify-content: center;">
+		  <h2 style="font-size: 28px; color: #212529; font-weight: 400; ">Contact Support</h2>
+	   </div>
+	   <div style="font-size: 24px; display: flex; justify-content: center; margin: 20px 0;">
+		  <div style="display: flex; align-items: center;margin-right: 45px;">
+			 <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M13.9995 16.9283L15.8088 15.119C16.051 14.8768 16.3589 14.7109 16.6944 14.642C17.03 14.5731 17.3784 14.6041 17.6964 14.7313L19.8999 15.6134C20.2246 15.7433 20.503 15.9676 20.6991 16.2572C20.8952 16.5469 21 16.8887 21 17.2385V21.2456C21.0006 21.4838 20.9525 21.7195 20.8588 21.9385C20.7651 22.1574 20.6277 22.355 20.455 22.519C20.2823 22.683 20.0779 22.81 19.8544 22.8923C19.6309 22.9746 19.393 23.0104 19.1552 22.9975C3.7099 22.0364 0.590479 8.95449 0.0113422 3.945C-0.0167071 3.7001 0.0074108 3.45203 0.0821098 3.21711C0.156809 2.9822 0.280396 2.76576 0.444742 2.58203C0.609089 2.39831 0.810471 2.25146 1.03564 2.15114C1.26081 2.05083 1.50467 1.99932 1.75118 2.00001H5.6872C6.037 2 6.37878 2.10479 6.66845 2.30088C6.95812 2.49697 7.1824 2.77536 7.31234 3.10012L8.19357 5.30359C8.32074 5.62165 8.35179 5.97003 8.28287 6.30557C8.21396 6.64111 8.0481 6.94905 7.80586 7.19124L5.99656 9.00053C5.99656 9.00053 6.99975 16.0536 13.9995 16.9283Z" fill="#AA6FD8"/>
+				<path d="M16.9605 8.07718H15.345C15.3444 7.43472 15.0889 6.81875 14.6346 6.36446C14.1803 5.91016 13.5643 5.65466 12.9219 5.65402V4.03857C13.9926 4.03986 15.0191 4.46576 15.7762 5.22287C16.5333 5.97998 16.9592 7.00647 16.9605 8.07718V8.07718Z" fill="#AA6FD8"/>
+				<path d="M20.1914 8.07724H18.5759C18.5742 6.57821 17.978 5.14108 16.918 4.08111C15.858 3.02114 14.4209 2.42489 12.9219 2.42318V0.807739C14.8492 0.809877 16.697 1.57645 18.0598 2.93929C19.4227 4.30212 20.1892 6.1499 20.1914 8.07724V8.07724Z" fill="#AA6FD8"/>
+			 </svg>
+			 <span style="margin-left: 8px;" id="phone">+1 (562) 362-3456</span> 
+		  </div>
+		  <div style="display: flex; align-items: center;margin-left: 45px;">
+			 <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M19.8 4.5L11 10.125L2.2 4.5V2.25L11 7.875L19.8 2.25V4.5ZM19.8 0H2.2C0.979 0 0 1.00125 0 2.25V15.75C0 16.3467 0.231785 16.919 0.644365 17.341C1.05695 17.7629 1.61652 18 2.2 18H19.8C20.3835 18 20.9431 17.7629 21.3556 17.341C21.7682 16.919 22 16.3467 22 15.75V2.25C22 1.65326 21.7682 1.08097 21.3556 0.65901C20.9431 0.237053 20.3835 0 19.8 0V0Z" fill="#AA6FD8"/>
+			 </svg>
+			 <span style="margin-left: 8px;" id="email">support@growthzilla.com</span> 
+		  </div>
+	   </div>
+	   </div>
+	</body>
+ </html>
+ 
+ 
